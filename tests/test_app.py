@@ -46,7 +46,7 @@ def test_extract_entities_uses_cached_nlp(monkeypatch):
 
     dummy_ents = [
         DummyEnt("Banco de Costa Rica", "ORG"),
-        DummyEnt("Moody's Analytics", "ORG"),
+        DummyEnt("Analytica Labs", "ORG"),
         DummyEnt("Ana Pérez", "PERSON"),
         DummyEnt("San José", "GPE"),
     ]
@@ -55,7 +55,7 @@ def test_extract_entities_uses_cached_nlp(monkeypatch):
     result = main.extract_entities("texto cualquiera")
 
     assert result == {
-        "organizations": ["Banco de Costa Rica", "Moody's Analytics"],
+        "organizations": ["Analytica Labs", "Banco de Costa Rica"],
         "persons": ["Ana Pérez"],
         "locations": ["San José"],
     }
@@ -63,7 +63,7 @@ def test_extract_entities_uses_cached_nlp(monkeypatch):
 
 def test_extract_keywords_returns_requested_top_n():
     text = (
-        "Moody's Analytics y el Banco de Costa Rica colaboran para crear una "
+        "Analytica Labs y el Banco de Costa Rica colaboran para crear una "
         "plataforma cloud con foco en análisis de riesgo financiero."
     )
     keywords = main.extract_keywords(text, top_n=3)
