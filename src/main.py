@@ -8,7 +8,17 @@ from taxonomy import classify_text
 # Carga del modelo de spaCy (español)
 # Hay que asegurarse de haber corrido antes:
 #   python -m spacy download es_core_news_md
-NLP = spacy.load("es_core_news_md")
+NLP = None
+
+
+def get_nlp():
+    """
+    Carga perezosa del modelo para facilitar las pruebas.
+    """
+    global NLP
+    if NLP is None:
+        NLP = spacy.load("es_core_news_md")
+    return NLP
 
 
 #this one uses the spacy model to identify companies, people and places
@@ -16,7 +26,7 @@ def extract_entities(text: str) -> dict:
     """
     Extrae entidades de tipo organización, persona y lugar.
     """
-    doc = NLP(text)
+    doc = get_nlp()(text)
     orgs = []
     persons = []
     locations = []
